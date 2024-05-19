@@ -1,9 +1,72 @@
 ---
+import { db, User } from "astro:db";
 import Layout from "../layouts/Layout.astro";
+
+const users = await db.select().from(User);
+
+if (Astro.request.method === "POST") {
+	try {
+		const formData = await Astro.request.formData();
+		const id = Number(formData.get("id"));
+		const username = formData.get("username");
+		const email = formData.get("email");
+
+		if (
+			typeof id === "number" &&
+			typeof username === "string" &&
+			typeof email === "string"
+		) {
+			await db.insert(User).values({ id, username, email });
+			// Inserta datos del formulario en la tabla de usuarios
+		} else {
+			throw new Error("Invalid data format");
+		}
+	} catch (error) {
+		console.error("Error inserting user:", error);
+		// Maneja el error de inserción aquí
+	}
+}
 ---
 
 <Layout title="Welcome to Astro.">
-	<main>
-		<h1>Hello</h1>
-	</main>
+	<div>
+		<h2>Usuarios</h2>
+
+		<form method="POST" style="display: grid">
+			<label for="id">ID</label>
+			<input
+				id="id"
+				name="id"
+				placeholder="ID"
+				class="border border-neutral-500"
+			/>
+
+			<label for="username">Nombre de usuario</label>
+			<input
+				id="username"
+				name="username"
+				placeholder="Nombre de usuario"
+				class="border border-neutral-500"
+			/>
+
+			<label for="email">Email</label>
+			<input
+				id="email"
+				name="email"
+				placeholder="Email"
+				class="border border-neutral-500"
+			/>
+
+			<button type="submit" class="bg-neutral-400">Enviar</button>
+		</form>
+
+		{
+			users.map(({ username, email }) => (
+				<article>
+					<p>Nombre de usuario: {username}</p>
+					<p>Email: {email}</p>
+				</article>
+			))
+		}
+	</div>
 </Layout>
