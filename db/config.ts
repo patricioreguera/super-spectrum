@@ -7,8 +7,13 @@ const User = defineTable({
     email: column.text({ unique: true }),
   }
 });
-
+const Comment = defineTable({
+  columns: {
+    authorId: column.number({ references: () => User.columns.id }),
+    content: column.text(),
+  }
+});
 
 export default defineDb({
-  tables: { User },
+  tables: { User,Comment },
 })

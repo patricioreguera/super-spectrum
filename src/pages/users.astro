@@ -2,19 +2,76 @@
 import Layout from "../layouts/Layout.astro";
 import { db, User } from "astro:db";
 
-const users = await db.select().from(User);
+// Variable para el estado del login
+let loginState = null;
+
+// Si la solicitud es de tipo POST, procesar el formulario
+if (Astro.request.method === "POST") {
+	const formData = await Astro.request.formData();
+	const username = formData.get("username");
+	const email = formData.get("email");
+
+	if (typeof username === "string" && typeof email === "string") {
+		const users = await db.select().from(User);
+		const user = users.find((user) => user.username === username);
+
+		if (user && user.email === email) {
+			// Si el login es exitoso, establecer una cookie
+			const cookieValue = encodeURIComponent(username);
+			Astro.cookies.set("session", cookieValue, {
+				path: "/",
+				maxAge: 60 * 60 * 24,
+			}); // Cookie válida por 1 día
+			loginState = "Login exitoso";
+		} else {
+			loginState = "Usuario o contraseña incorrectos";
+		}
+	} else {
+		loginState = "Error en los datos proporcionados";
+	}
+}
+
+// Verificar si hay una cookie de sesión existente
+const sessionUser = Astro.cookies.get("session");
+
+if (sessionUser) {
+	loginState = `Bienvenido, ${decodeURIComponent(sessionUser.value)}!`;
+}
 ---
 
-<Layout title="Welcome to Astro.">
+<Layout title="Login">
 	<div class="text-white">
-		<h1>USERS</h1>
+		<h1>Login</h1>
 		{
-			users.map(({ username, email }) => (
-				<article>
-					<p>Nombre de usuario: {username}</p>
-					<p>Email: {email}</p>
-				</article>
-			))
+			sessionUser ? (
+				<div>
+					<p>{loginState}</p>
+					<form method="POST" action="/logout">
+						<button type="submit">Logout</button>
+					</form>
+				</div>
+			) : (
+				<form method="POST">
+					<input
+						type="text"
+						id="username"
+						name="username"
+						placeholder="Username"
+						class="border border-neutral-500 text-black"
+						required
+					/>
+					<input
+						type="email"
+						id="email"
+						name="email"
+						placeholder="Email"
+						class="border border-neutral-500 text-black"
+						required
+					/>
+					<button type="submit">Login</button>
+				</form>
+			)
 		}
+		{loginState && !sessionUser && <p>{loginState}</p>}
 	</div>
 </Layout>

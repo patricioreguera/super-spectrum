@@ -1,0 +1,30 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { db, Comment, User } from "astro:db";
+const comments = await db.select().from(Comment);
+const users = await db.select().from(User);
+console.log(users);
+console.log(comments);
+---
+
+<Layout title="DB">
+	<div class="text-white">
+		<h1>BASES DE DATOS</h1>
+		{
+			users.map((user) => (
+				<>
+					<h6>{user.username}</h6>
+					<h6>{user.email}</h6>
+				</>
+			))
+		}
+		{
+			comments.map((comment) => (
+				<>
+					<h6>{comment.authorId}</h6>
+					<h6>{comment.content}</h6>
+				</>
+			))
+		}
+	</div>
+</Layout>
