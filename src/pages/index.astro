@@ -17,8 +17,12 @@ if (Astro.request.method === "POST") {
 			typeof email === "string"
 		) {
 			await db.insert(User).values({ id, username, email });
+			console.log({ id, username, email });
+
 			// Inserta datos del formulario en la tabla de usuarios
 		} else {
+			console.log("aca");
+
 			throw new Error("Invalid data format");
 		}
 	} catch (error) {
@@ -29,8 +33,11 @@ if (Astro.request.method === "POST") {
 ---
 
 <Layout title="Welcome to Astro.">
-	<div>
-		<h2>Usuarios</h2>
+	<div
+		class="flex-col m-auto justify-center items-center max-w-[600px] mt-10
+	text-white"
+	>
+		<h2>Login</h2>
 
 		<form method="POST" style="display: grid">
 			<label for="id">ID</label>
@@ -38,7 +45,7 @@ if (Astro.request.method === "POST") {
 				id="id"
 				name="id"
 				placeholder="ID"
-				class="border border-neutral-500"
+				class="border border-neutral-500 text-black"
 			/>
 
 			<label for="username">Nombre de usuario</label>
@@ -46,7 +53,7 @@ if (Astro.request.method === "POST") {
 				id="username"
 				name="username"
 				placeholder="Nombre de usuario"
-				class="border border-neutral-500"
+				class="border border-neutral-500 text-black"
 			/>
 
 			<label for="email">Email</label>
@@ -54,10 +61,12 @@ if (Astro.request.method === "POST") {
 				id="email"
 				name="email"
 				placeholder="Email"
-				class="border border-neutral-500"
+				class="border border-neutral-500 text-black"
 			/>
 
-			<button type="submit" class="bg-neutral-400">Enviar</button>
+			<button type="submit" class="bg-blue-600 my-5 h-10 rounded-md"
+				>Enviar</button
+			>
 		</form>
 
 		{

@@ -1,0 +1,31 @@
+---
+const menuItems = [
+	{
+		title: "Compra",
+		link: "/",
+	},
+	{
+		title: "Venta",
+		link: "/",
+	},
+	{
+		title: "Contacto",
+		link: "/",
+	},
+];
+---
+
+<div class="px-4 flex items-center flex-wrap justify-between bg-slate-300">
+	<div class="flex gap-4 py-3">
+		<a href="/"> LOGO </a>
+	</div>
+	<div class="flex gap-5 text-secondary">
+		{
+			menuItems.map((item) => (
+				<a class="hover:pointer text-secondary" href={item.link}>
+					{item.title}
+				</a>
+			))
+		}
+	</div>
+</div>
