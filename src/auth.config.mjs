@@ -1,4 +1,4 @@
-import GitHub from "@auth/core/providers/g";
+/* import GitHub from "@auth/core/providers/g";
 import { defineConfig } from "auth-astro";
 
 export default defineConfig({
@@ -9,3 +9,4 @@ export default defineConfig({
 		}),
 	],
 });
+ */
