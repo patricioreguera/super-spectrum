@@ -2,8 +2,6 @@
 import { db, User } from "astro:db";
 import Layout from "../layouts/Layout.astro";
 
-const users = await db.select().from(User);
-
 if (Astro.request.method === "POST") {
 	try {
 		const formData = await Astro.request.formData();
@@ -65,14 +63,5 @@ if (Astro.request.method === "POST") {
 				>Enviar</button
 			>
 		</form>
-
-		{
-			users.map(({ username, email }) => (
-				<article>
-					<p>Nombre de usuario: {username}</p>
-					<p>Email: {email}</p>
-				</article>
-			))
-		}
 	</div>
 </Layout>
