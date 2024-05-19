@@ -7,8 +7,9 @@ export default async function() {
     { id: 3, username: 'demo!', email:"demo@demo.com"},
   ])
   await db.insert(Comment).values([
-    { authorId: 1, content: 'Hope you like Astro DB!' },
-    { authorId: 2, content: 'Enjoy!'},
-  ])
+    { authorId: 1, content: 'ejemplo de comentario de usuario 1'},
+    { authorId: 2, content: 'ejemplo de comentario de usuario 2'},
+    { authorId: 3, content: 'ejemplo de comentario de usuario '},
 
+  ])
 }

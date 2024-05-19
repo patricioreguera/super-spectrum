@@ -1,21 +1,15 @@
 ---
-import { db, User } from "astro:db";
+import { db, Comment } from "astro:db";
 import Layout from "../layouts/Layout.astro";
-import Comment from "./addcomment.astro";
 
 if (Astro.request.method === "POST") {
 	try {
 		const formData = await Astro.request.formData();
-		const id = Number(formData.get("id"));
-		const username = formData.get("username");
-		const email = formData.get("email");
+		const authorId = Number(formData.get("authorId"));
+		const content = formData.get("content");
 
-		if (
-			typeof id === "number" &&
-			typeof username === "string" &&
-			typeof email === "string"
-		) {
-			await db.insert(User).values({ id, username, email });
+		if (typeof authorId === "number" && typeof content === "string") {
+			await db.insert(Comment).values({ authorId, content });
 
 			// Inserta datos del formulario en la tabla de usuarios
 		} else {
@@ -31,32 +25,24 @@ if (Astro.request.method === "POST") {
 <Layout title="Welcome to Astro.">
 	<div
 		class="flex-col m-auto justify-center items-center max-w-[600px] mt-10
-	text-white"
+text-white"
 	>
-		<h2>Login</h2>
+		<h2>comentarios</h2>
 
 		<form method="POST" style="display: grid">
-			<label for="id">ID</label>
+			<label for="authorId">id de usuario</label>
 			<input
-				id="id"
-				name="id"
-				placeholder="ID"
+				id="authorId"
+				name="authorId"
+				placeholder=" authorId"
 				class="border border-neutral-500 text-black"
 			/>
 
-			<label for="username">Nombre de usuario</label>
+			<label for="content">content</label>
 			<input
-				id="username"
-				name="username"
-				placeholder="Nombre de usuario"
-				class="border border-neutral-500 text-black"
-			/>
-
-			<label for="email">Email</label>
-			<input
-				id="email"
-				name="email"
-				placeholder="Email"
+				id="content"
+				name="content"
+				placeholder="content"
 				class="border border-neutral-500 text-black"
 			/>
 
