@@ -17,12 +17,9 @@ if (Astro.request.method === "POST") {
 			typeof email === "string"
 		) {
 			await db.insert(User).values({ id, username, email });
-			console.log({ id, username, email });
 
 			// Inserta datos del formulario en la tabla de usuarios
 		} else {
-			console.log("aca");
-
 			throw new Error("Invalid data format");
 		}
 	} catch (error) {
