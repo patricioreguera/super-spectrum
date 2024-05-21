@@ -37,35 +37,4 @@ export const POST: APIRoute = async ({ request }) => {
     });
   }
 };
-
-/* import type { APIRoute } from "astro";
-
-export const POST:APIRoute = ({ params, request }) => {
-	return new Response("Hello word", { status: 200 });
-}; */
-/* export async function post({ request }) {
-	try {
-		const data = await request.json();
-		const { id, username, email } = data;
-
-		if (
-			typeof id === "number" &&
-			typeof username === "string" &&
-			typeof email === "string"
-		) {
-			await db.insert(User).values({ id, username, email });
-			return new Response(
-				JSON.stringify({ message: "User inserted successfully" }),
-				{ status: 200 }
-			);
-		} else {
-			return new Response(JSON.stringify({ error: "Invalid data format" }), {
-				status: 400,
-			});
-		}
-	} catch (error) {
-		return new Response(JSON.stringify({ error: error.message }), {
-			status: 500,
-		});
-	}
-} */
+	

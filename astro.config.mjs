@@ -18,3 +18,4 @@ export default defineConfig({
 //  npm run astro db push --remote  para pushear la db local
 // npm install @astrojs/vercel  para instalar vercel
 //npm install @astrojs/tailwind tailwindcss taiwind install
+//https://flowbite.com/docs/components/
