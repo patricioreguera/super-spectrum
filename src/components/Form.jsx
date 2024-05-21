@@ -1,7 +1,6 @@
 import { useState } from "react";
 
 const initialValues = {
-	id: "",
 	username: "",
 	email: "",
 };
@@ -11,20 +10,16 @@ const Form = () => {
 
 	const handleForm = async (e) => {
 		e.preventDefault();
-		const { id, username, email } = formValues;
+		const { username, email } = formValues;
 
-		if (
-			!isNaN(id) &&
-			typeof username === "string" &&
-			typeof email === "string"
-		) {
+		if (typeof username === "string" && typeof email === "string") {
 			try {
 				const response = await fetch("/api/insert-user", {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
 					},
-					body: JSON.stringify({ id: Number(id), username, email }),
+					body: JSON.stringify({ username, email }),
 				});
 
 				if (!response.ok) {
@@ -38,6 +33,7 @@ const Form = () => {
 		} else {
 			console.error("Invalid data format");
 		}
+		setFormValues(initialValues);
 	};
 
 	return (
@@ -46,12 +42,6 @@ const Form = () => {
 				className="flex flex-col gap-2 text-slate-900"
 				onSubmit={handleForm}
 			>
-				<input
-					className="text-slate-900"
-					placeholder="ID"
-					value={formValues.id}
-					onChange={(e) => setFormValues({ ...formValues, id: e.target.value })}
-				/>
 				<input
 					type="text"
 					placeholder="Username"
