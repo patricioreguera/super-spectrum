@@ -3,8 +3,8 @@ import Layout from "../layouts/Layout.astro";
 import { db, Comment, User } from "astro:db";
 const comments = await db.select().from(Comment);
 const users = await db.select().from(User);
-console.log(users);
-console.log(comments);
+/* console.log(users);
+console.log(comments); */
 ---
 
 <Layout title="DB">

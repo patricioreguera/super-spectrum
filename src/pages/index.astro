@@ -2,8 +2,9 @@
 import { db, User } from "astro:db";
 import Layout from "../layouts/Layout.astro";
 import Comment from "./addcomment.astro";
+import Form from "../components/Form";
 
-if (Astro.request.method === "POST") {
+/* if (Astro.request.method === "POST") {
 	try {
 		const formData = await Astro.request.formData();
 		const id = Number(formData.get("id"));
@@ -25,17 +26,14 @@ if (Astro.request.method === "POST") {
 		console.error("Error inserting user:", error);
 		// Maneja el error de inserción aquí
 	}
-}
+} */
 ---
 
 <Layout title="Welcome to Astro.">
-	<div
-		class="flex-col m-auto justify-center items-center max-w-[600px] mt-10
-	text-white"
-	>
-		<h2>Login</h2>
-
-		<form method="POST" style="display: grid">
+	<div class="flex-col m-auto justify-center items-center max-w-[600px] mt-10">
+		<h2 class="text-white">Login</h2>
+		<Form client:visible />
+		<!-- 		<form method="POST" style="display: grid">
 			<label for="id">ID</label>
 			<input
 				id="id"
@@ -63,6 +61,6 @@ if (Astro.request.method === "POST") {
 			<button type="submit" class="bg-blue-600 my-5 h-10 rounded-md"
 				>Enviar</button
 			>
-		</form>
+		</form> -->
 	</div>
 </Layout>
