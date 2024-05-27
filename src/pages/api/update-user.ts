@@ -1,5 +1,6 @@
-import { db, User } from "astro:db";
+import { db, eq, User } from "astro:db";
 import type { APIRoute } from 'astro';
+import Email from "@auth/core/providers/email";
 
 interface UserData {
   email: string;
@@ -15,7 +16,15 @@ export const PUT: APIRoute = async ({ request }) => {
       typeof email === 'string' &&
       typeof username === 'string'
     ) {
-      const user = await db.update(User).set({ username }).where({ email});
+      /* const user = await db.update(User).set({ username }).where('email', '==', email); */
+
+/*       
+
+PARA BORRAR
+const user = await db.delete(User).where(eq(User.email, email)); */
+       
+        const user = await db.update(User).set({username}).where(eq(User.email, email));
+
       if (user) {
         return new Response(JSON.stringify({ message: 'User updated successfully' }), {
           status: 200,
