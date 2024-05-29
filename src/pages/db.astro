@@ -1,6 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
-import { db, Comment, User } from "astro:db";
+import { db, /* Comment */ User } from "astro:db";
 import ButtonDelete from "../components/ButtonDelete";
 import type Email from "@auth/core/providers/email";
 import { eq } from "astro:db";
@@ -39,7 +39,7 @@ console.log(comments); */
 								</th>
 								<td class="px-6 py-4"> {user.email} </td>
 								<td class="px-6 py-4">
-									<ButtonDelete client:load email={user.email} />
+									{/* 	<ButtonDelete client:load email={user.email} /> */}
 								</td>
 							</tr>
 						))
