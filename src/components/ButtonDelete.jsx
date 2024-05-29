@@ -6,7 +6,7 @@ const ButtonDelete = ({ email }) => {
 			method: "POST",
 			body: JSON.stringify({ email }),
 		});
-		navigate("/db");
+		navigate(window.location.pathname);
 	};
 
 	return (
