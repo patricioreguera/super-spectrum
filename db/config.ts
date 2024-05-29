@@ -7,12 +7,8 @@ const User = defineTable({
   }
 });
 
-const Comment = defineTable({
-  columns: {
-    content: column.text(),
-  }
-});
+
 
 export default defineDb({
-  tables: { User, Comment },
+  tables: { User },
 });

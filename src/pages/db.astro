@@ -1,7 +1,10 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { db, Comment, User } from "astro:db";
-const comments = await db.select().from(Comment);
+import ButtonDelete from "../components/ButtonDelete";
+import type Email from "@auth/core/providers/email";
+import { eq } from "astro:db";
+//const comments = await db.select().from(Comment);
 const users = await db.select().from(User);
 /* console.log(users);
 console.log(comments); */
@@ -36,9 +39,7 @@ console.log(comments); */
 								</th>
 								<td class="px-6 py-4"> {user.email} </td>
 								<td class="px-6 py-4">
-									<a class="font-medium text-blue-600 dark:text-blue-500 hover:underline">
-										delete
-									</a>
+									<ButtonDelete client:load email={user.email} />
 								</td>
 							</tr>
 						))
