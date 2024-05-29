@@ -2,12 +2,8 @@
 import Layout from "../layouts/Layout.astro";
 import { db, /* Comment */ User } from "astro:db";
 import ButtonDelete from "../components/ButtonDelete";
-import type Email from "@auth/core/providers/email";
-import { eq } from "astro:db";
-//const comments = await db.select().from(Comment);
+
 const users = await db.select().from(User);
-/* console.log(users);
-console.log(comments); */
 ---
 
 <Layout title="DB">
@@ -29,20 +25,21 @@ console.log(comments); */
 				</thead>
 				<tbody>
 					{
-						users.reverse().map((user) => (
-							<tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
-								<th
-									scope="row"
-									class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
-								>
-									{user.username}
-								</th>
-								<td class="px-6 py-4"> {user.email} </td>
-								<td class="px-6 py-4">
-									{/* 	<ButtonDelete client:load email={user.email} /> */}
-								</td>
-							</tr>
-						))
+						users &&
+							users.reverse().map((user) => (
+								<tr class="odd:bg-white odd:dark:bg-gray-900 even:bg-gray-50 even:dark:bg-gray-800 border-b dark:border-gray-700">
+									<th
+										scope="row"
+										class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white"
+									>
+										{user.username}
+									</th>
+									<td class="px-6 py-4"> {user.email} </td>
+									<td class="px-6 py-4">
+										<ButtonDelete client:load email={user.email} />
+									</td>
+								</tr>
+							))
 					}
 				</tbody>
 			</table>
